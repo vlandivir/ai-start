@@ -4,97 +4,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Первый проект</title>
-  <style>
-    :root {
-      --bg: #f4efe6;
-      --ink: #1c1915;
-      --muted: #5c564c;
-      --card: #fffaf3;
-      --line: #e4d9c8;
-      --ember: #c45c2c;
-      --ember-ink: #fff7f0;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1a1714;
-        --ink: #f3ece3;
-        --muted: #b5aa9c;
-        --card: #241f1a;
-        --line: #3a332b;
-        --ember: #e07a45;
-        --ember-ink: #1a1714;
-      }
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body {
-      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-      background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(196, 92, 44, 0.12), transparent 55%),
-        var(--bg);
-      color: var(--ink);
-      line-height: 1.5;
-    }
-    main {
-      max-width: 36rem;
-      margin: 0 auto;
-      padding: 18vh 1.5rem 3rem;
-    }
-    .step {
-      font-family: ui-sans-serif, system-ui, sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 0 0 0.75rem;
-    }
-    h1 {
-      font-size: clamp(2rem, 6vw, 2.75rem);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin: 0 0 1rem;
-    }
-    p {
-      font-size: 1.15rem;
-      color: var(--muted);
-      margin: 0 0 2rem;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 1.25rem;
-      padding: 1.5rem;
-    }
-    a.button {
-      display: inline-block;
-      font-family: ui-sans-serif, system-ui, sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      color: var(--ember-ink);
-      background: var(--ember);
-      text-decoration: none;
-      padding: 0.85rem 1.2rem;
-      border-radius: 999px;
-    }
-    a.button:hover { filter: brightness(1.06); }
-    .hint {
-      font-family: ui-sans-serif, system-ui, sans-serif;
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin: 1rem 0 0;
-    }
-  </style>
+  <link rel="stylesheet" href="guide.css">
 </head>
-<body>
+<body data-editor="cursor">
   <main>
-    <p class="step">Шаг 1</p>
     <h1>Поздравляем, это уже ваш репозиторий.</h1>
-    <p>Сейчас подключим место, где сайт будет жить в интернете — для этого нужен бесплатный аккаунт Vercel.</p>
-    <div class="card">
-      <a class="button" href="https://vercel.com/signup" target="_blank" rel="noopener">Зарегистрироваться в Vercel</a>
-      <p class="hint">Нажмите Continue with GitHub — отдельный пароль не нужен. Когда увидите панель Vercel, вернитесь в чат и напишите «готово».</p>
-    </div>
+    <p class="lead">Выберите редактор — дальше только шаги для него. После каждого вернитесь в чат и напишите «готово».</p>
+
+    <section id="step-0">
+      <p class="step">Шаг 0</p>
+      <h2>Где вы работаете?</h2>
+      <div class="editors" role="group" aria-label="Редактор">
+        <button type="button" class="editor-btn is-selected" data-editor="cursor" aria-pressed="true">Cursor</button>
+        <button type="button" class="editor-btn" data-editor="claude" aria-pressed="false">Claude Code</button>
+        <button type="button" class="editor-btn" data-editor="codex" aria-pressed="false">Codex</button>
+      </div>
+    </section>
+
+    <section id="step-1">
+      <p class="step">Шаг 1</p>
+      <h2>Аккаунт Vercel</h2>
+      <p class="lead">Сейчас подключим место, где сайт будет жить в интернете — для этого нужен бесплатный аккаунт.</p>
+      <div class="card">
+        <a class="button" href="https://vercel.com/signup" target="_blank" rel="noopener">Зарегистрироваться в Vercel</a>
+        <p class="hint">Нажмите Continue with GitHub — отдельный пароль не нужен. Когда увидите панель Vercel, напишите в чат «готово».</p>
+      </div>
+    </section>
+
+    <section id="step-2">
+      <p class="step">Шаг 2</p>
+      <h2>Доступ агента</h2>
+      <p class="lead">Один раз войдите в Vercel из редактора — тогда агент сможет сам выкладывать сайт. Ключи копировать не нужно.</p>
+
+      <div class="card" data-for="cursor">
+        <p>Нажмите кнопку — Cursor сам предложит поставить Vercel и войти.</p>
+        <a class="button" href="cursor://anysphere.cursor-deeplink/mcp/install?name=vercel&config=eyJ1cmwiOiJodHRwczovL21jcC52ZXJjZWwuY29tIn0=">Подключить в Cursor</a>
+      </div>
+      <div class="card" data-for="claude">
+        <p>В чате Claude напишите <code>/mcp</code>, выберите Vercel и Authenticate — откроется браузер.</p>
+      </div>
+      <div class="card" data-for="codex">
+        <p>В чате Codex напишите <code>/mcp</code> и подключите Vercel. Если браузер открылся сам — просто разрешите доступ.</p>
+      </div>
+      <p class="hint">Когда Vercel в списке подключений станет активным (не «нужен вход»), напишите в чат «готово».</p>
+    </section>
   </main>
+  <script src="guide.js"></script>
 </body>
 </html>

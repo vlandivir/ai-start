@@ -1,0 +1,4 @@
+# Project MCP config for Codex. No secrets — login happens in the editor via OAuth.
+
+[mcp_servers.vercel]
+url = "https://mcp.vercel.com"
