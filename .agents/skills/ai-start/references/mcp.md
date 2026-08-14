@@ -26,7 +26,8 @@ After login, call `list_teams`. Use the first team's `slug` and `id`. Do not ask
 
 1. `bash scripts/next-project-name.sh <slug>` → `<slug>-<YYYYMMDDHHMM>-ai-start`
 2. `deploy_to_vercel` with `target: production`, that name, `teamId`, `projectSettings.framework: null`, and `assets/hello.html` as `index.html`
-3. `bash scripts/write-deploy-js.sh <public-.vercel.app-url> <project-name>`
-4. Re-open the guide on step 3
+3. `update_project_deployment_protection` with `ssoProtection: { enabled: false }` so the URL opens without Vercel login
+4. `bash scripts/write-deploy-js.sh <public-.vercel.app-url> <project-name>` — no `_vercel_share` token
+5. Re-open the guide on step 3
 
 Do not use `create_git_project`. Do not collect tokens.

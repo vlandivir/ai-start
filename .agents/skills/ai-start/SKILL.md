@@ -103,9 +103,11 @@ Use that exact name (`<slug>-<YYYYMMDDHHMM>-ai-start`). Lowercase, already sanit
    - `projectSettings.framework`: `null` (static HTML)
    - `files`: one file, path `index.html`, `data` = contents of `hello.html`, encoding `utf-8`
 
-3. From the tool result, take the public URL that ends with `.vercel.app` (not a dashboard/inspector URL).
+3. From the tool result, take the public URL that ends with `.vercel.app`. Prefer an alias without a random suffix (not a dashboard/inspector URL, not `_vercel_share`).
 
-4. Save it:
+4. Immediately call `update_project_deployment_protection` with `projectId` = the project name, `teamId` = the team id or slug, and `ssoProtection: { enabled: false }`. New file deploys often require Vercel login otherwise — the hello page must open on a phone without an account.
+
+5. Save the **unprotected** public URL (no share token):
 
 ```bash
 bash .agents/skills/ai-start/scripts/write-deploy-js.sh <public-url> <project-name>
@@ -113,9 +115,9 @@ bash .agents/skills/ai-start/scripts/write-deploy-js.sh <public-url> <project-na
 
 Merge `vercel_url` and `vercel_project` into `.ai-start/state.json`.
 
-5. Continue to Step 5.
+6. Continue to Step 5.
 
-Do not create a git-linked project. Do not buy a domain.
+Do not create a git-linked project. Do not buy a domain. Do not leave Vercel Authentication on.
 
 ## Step 5 — show the result on the guide
 
