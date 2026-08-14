@@ -4,4 +4,5 @@
 node_modules/
 .vercel
 .ai-start/
+.agents/skills/ai-start/assets/deploy.js
 .DS_Store

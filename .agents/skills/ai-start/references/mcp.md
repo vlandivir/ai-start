@@ -18,8 +18,15 @@ If a file is missing, run `scripts/ensure-vercel-mcp.sh` from the skill (it writ
 - **Claude Code:** no browser install link. `/mcp` → Vercel → Authenticate.
 - **Codex:** no browser install link. `/mcp`, or allow the browser window if Codex opened OAuth itself. Project `.codex/config.toml` loads only if the folder is trusted.
 
-## Check
+## Account name
 
-After they write «готово», call an authenticated Vercel MCP tool (`list_teams` or `list_projects`). If those tools are absent, login did not stick — send them back to the guide page and ask them to write «готово» again after the server shows as connected.
+After login, call `list_teams`. Use the first team's `slug` and `id`. Do not ask the user to paste a dashboard URL.
 
-Do not create a Vercel project, do not link GitHub, do not collect tokens.
+## Deploy
+
+1. `bash scripts/next-project-name.sh <slug>` → `<slug>-<YYYYMMDDHHMM>-ai-start`
+2. `deploy_to_vercel` with `target: production`, that name, `teamId`, `projectSettings.framework: null`, and `assets/hello.html` as `index.html`
+3. `bash scripts/write-deploy-js.sh <public-.vercel.app-url> <project-name>`
+4. Re-open the guide on step 3
+
+Do not use `create_git_project`. Do not collect tokens.

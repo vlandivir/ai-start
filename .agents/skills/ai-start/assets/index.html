@@ -9,7 +9,7 @@
 <body data-editor="cursor">
   <main>
     <h1>Поздравляем, это уже ваш репозиторий.</h1>
-    <p class="lead">Выберите редактор — дальше только шаги для него. После каждого вернитесь в чат и напишите «готово».</p>
+    <p class="lead">Выберите редактор — дальше только шаги для него. После каждого вернитесь в чат и напишите «готово». Когда сайт появится в интернете, ссылка будет внизу этой страницы.</p>
 
     <section id="step-0">
       <p class="step">Шаг 0</p>
@@ -48,7 +48,18 @@
       </div>
       <p class="hint">Когда Vercel в списке подключений станет активным (не «нужен вход»), напишите в чат «готово».</p>
     </section>
+
+    <section id="step-3" hidden>
+      <p class="step">Шаг 3</p>
+      <h2>Ваш сайт в интернете</h2>
+      <p class="lead">Агент выложил простую страницу с приветствием. Откройте ссылку — это уже не на вашем компьютере.</p>
+      <div class="card">
+        <a class="button" id="deploy-link" href="#" target="_blank" rel="noopener">Открыть сайт</a>
+        <p class="hint" id="deploy-name"></p>
+      </div>
+    </section>
   </main>
+  <script src="deploy.js"></script>
   <script src="guide.js"></script>
 </body>
 </html>
