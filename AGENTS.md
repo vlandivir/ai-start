@@ -1,7 +1,9 @@
 # Agent instructions
 
-This repository is a beginner template. The destination app is a shared shopping list (send a link, everyone checks items off). The list itself is not in the repo yet.
+This repository is beginner infrastructure: a person with no development experience should be able to describe an idea and get a working site on the internet.
 
-If the user wants to start, launch their first project, or asks what to do after cloning, read and follow [`.agents/skills/first-project/SKILL.md`](.agents/skills/first-project/SKILL.md).
+The first example to prove the loop is **кто что несёт на шашлык** (shared link, name + what you bring). It is a sample, not the product of this repo.
 
-Do not scaffold the app, collect secrets, or deploy until that skill says those phases exist.
+If the user wants to start, launch their first project, writes «готово», or asks what to do after cloning, read and follow [`.agents/skills/ai-start/SKILL.md`](.agents/skills/ai-start/SKILL.md).
+
+The current step lives on a local HTML page. Open it with the skill's script; do not duplicate the page in chat. Do not scaffold an app, collect secrets, or deploy until that skill says those phases exist.
