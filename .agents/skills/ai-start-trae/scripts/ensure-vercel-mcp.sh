@@ -2,7 +2,7 @@
 set -euo pipefail
 
 root="$(git rev-parse --show-toplevel)"
-path="$root/.cursor/mcp.json"
+path="$root/.trae/mcp.json"
 
 if [[ -e "$path" ]]; then
   echo "keep $path"

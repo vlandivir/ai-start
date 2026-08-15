@@ -1,21 +1,21 @@
 ---
-name: ai-start-cursor
+name: ai-start-trae
 description: >-
-  Guides a beginner in Cursor through this template so they can program anything
-  they want without development experience. Opens a local HTML guide, connects
-  Vercel MCP in Cursor, then deploys a hello page to a Vercel URL. Use when the
-  user is in Cursor and says «запусти мой первый проект», «начнём», «готово»,
-  «start my first project», opens this repo to get started, or asks how to
-  proceed after cloning the template.
+  Guides a beginner in Trae (TraeCode, trae.ai) through this template so they
+  can program anything they want without development experience. Opens a local
+  HTML guide, connects Vercel MCP in Trae, then deploys a hello page to a
+  Vercel URL. Use when the user is in Trae and says «запусти мой первый проект»,
+  «начнём», «готово», «не вошло», «start my first project», opens this repo to
+  get started, or asks how to proceed after cloning the template.
 ---
 
-# ai-start-cursor
+# ai-start-trae
 
 You are walking a person who may not know IT. Use plain language. Do not ask them to run terminal commands themselves. Execute scripts yourself.
 
 This repository is **infrastructure**, not a specific product. The first example to prove the loop is **«кто что несёт на шашлык»** — do not build that app yet. First proof is a hello page on Vercel.
 
-This skill is **Cursor only**. Do not mention Trae, Claude Code, or Codex. Do not ask which editor they use.
+This skill is **Trae only** (international app from [trae.ai](https://www.trae.ai/), not the China app trae.cn). Do not mention Cursor, Claude Code, or Codex. Do not ask which editor they use.
 
 The guide UI is **one local HTML page** (no backend): [assets/index.html](assets/index.html). Re-open with `open-guide.sh <n>` so `#step-n` is highlighted. Keep chat short: do not paste the page copy.
 
@@ -49,14 +49,14 @@ If `.ai-start/state.json` already has a `vercel_url`, skip to Step 5 (re-open th
 
 If Vercel MCP already works (`list_teams` succeeds) and there is no `vercel_url`, skip to Step 4.
 
-If MCP is not ready but they already saw the MCP step, wait for «готово» and go to Step 3.
+If MCP is not ready but they already saw the MCP step, wait for «готово» or «не вошло» and go to Step 3.
 
 ## Step 1 — open the guide
 
 Execute:
 
 ```bash
-bash .agents/skills/ai-start-cursor/scripts/open-guide.sh 1
+bash .agents/skills/ai-start-trae/scripts/open-guide.sh 1
 ```
 
 The page starts at the Vercel account step. In chat, one short line: the page opened; after Vercel they should write **готово**.
@@ -70,21 +70,22 @@ Do **not** ask them to paste a Vercel dashboard URL. Next check is MCP.
 Execute:
 
 ```bash
-bash .agents/skills/ai-start-cursor/scripts/ensure-vercel-mcp.sh
-bash .agents/skills/ai-start-cursor/scripts/open-guide.sh 2
+bash .agents/skills/ai-start-trae/scripts/ensure-vercel-mcp.sh
+bash .agents/skills/ai-start-trae/scripts/open-guide.sh 2
 ```
 
-Write `.ai-start/state.json` with `{ "mcp_prompted": true }` (keep other keys). In chat, one short line: look at step 2; when Vercel is connected in Cursor, write **готово**.
+Write `.ai-start/state.json` with `{ "mcp_prompted": true }` (keep other keys). In chat, one short line: look at step 2; when Vercel is connected in Trae, write **готово**. If the login window never appears, they should write **не вошло**.
 
-Do not complete OAuth for them. Do not link GitHub.
+Do not complete OAuth for them. Do not link GitHub. Do not put API tokens in git.
 
 ## Step 3 — check that MCP works
 
-When they write «готово» after the MCP step (or any «готово» if you have not confirmed MCP yet):
+When they write «готово» or «не вошло» after the MCP step (or any «готово» if you have not confirmed MCP yet):
 
 1. Call Vercel MCP `list_teams` (see [references/mcp.md](references/mcp.md)).
-2. If the tool is missing or fails: login did not stick. Send them back to step 2. Ask them to write **готово** again after the server is green.
-3. If it returns teams: take the first team's `slug` and `id`. Merge into `.ai-start/state.json`: `vercel_slug`, `vercel_team_id`, `vercel_mcp: true`. Then continue to Step 4 in the same turn.
+2. If the tool exists and returns teams: take the first team's `slug` and `id`. Merge into `.ai-start/state.json`: `vercel_slug`, `vercel_team_id`, `vercel_mcp: true`. Then continue to Step 4 in the same turn.
+3. If the tool is missing or fails after «готово»: login did not stick. Send them back to step 2 once. Ask them to write **готово** again after Vercel is connected, or **не вошло** if Trae refuses the login.
+4. If they wrote **не вошло**, or the second attempt still has no `list_teams`: follow **If OAuth never starts** in [references/mcp.md](references/mcp.md). Do not loop on OAuth forever.
 
 ## Step 4 — deploy the hello page
 
@@ -93,7 +94,7 @@ Do this only if `vercel_url` is not already in state.
 1. Run (pass the team slug from `list_teams`):
 
 ```bash
-bash .agents/skills/ai-start-cursor/scripts/next-project-name.sh <team-slug>
+bash .agents/skills/ai-start-trae/scripts/next-project-name.sh <team-slug>
 ```
 
 Use that exact name (`<slug>-<YYYYMMDDHHMM>-ai-start`). Lowercase, already sanitized by the script.
@@ -112,7 +113,7 @@ Use that exact name (`<slug>-<YYYYMMDDHHMM>-ai-start`). Lowercase, already sanit
 5. Save the **unprotected** public URL (no share token):
 
 ```bash
-bash .agents/skills/ai-start-cursor/scripts/write-deploy-js.sh <public-url> <project-name>
+bash .agents/skills/ai-start-trae/scripts/write-deploy-js.sh <public-url> <project-name>
 ```
 
 Merge `vercel_url` and `vercel_project` into `.ai-start/state.json`.
@@ -124,7 +125,7 @@ Do not create a git-linked project. Do not buy a domain. Do not leave Vercel Aut
 ## Step 5 — show the result on the guide
 
 ```bash
-bash .agents/skills/ai-start-cursor/scripts/open-guide.sh 3
+bash .agents/skills/ai-start-trae/scripts/open-guide.sh 3
 ```
 
 The guide step 3 becomes visible with the live link (via gitignored `assets/deploy.js`). In chat, one short line: the site is on the internet; the link is on the page.
