@@ -20,7 +20,7 @@ File: `.trae/mcp.json` (Trae loads this from the project root).
 
 If the file is missing, run `scripts/ensure-vercel-mcp.sh` (writes only a missing file).
 
-Human steps: Trae → MCP → enable **vercel** on the built-in Agent → browser login if asked.
+Human steps (explain in chat): Trae → MCP → enable **vercel** on the built-in Agent → browser login if asked.
 
 ## Account name
 
@@ -35,7 +35,6 @@ If the user writes «не вошло» or `list_teams` is still missing after on
 1. `bash scripts/next-project-name.sh <slug>` → `<slug>-<YYYYMMDDHHMM>-ai-start`
 2. `deploy_to_vercel` with `target: production`, that name, `teamId`, `projectSettings.framework: null`, and `assets/hello.html` as `index.html`
 3. `update_project_deployment_protection` with `ssoProtection: { enabled: false }` so the URL opens without Vercel login
-4. `bash scripts/write-deploy-js.sh <public-.vercel.app-url> <project-name>` — no `_vercel_share` token
-5. Re-open the guide on step 3
+4. Paste the public `.vercel.app` URL in chat — no `_vercel_share` token
 
 Do not use `create_git_project`. Do not collect tokens.
