@@ -1,14 +1,11 @@
-# Agent instructions
+# Заметки себе
 
-This repository is beginner infrastructure: a person with no development experience should be able to describe an idea and get a working site on the internet.
+Это инфраструктура для человека без опыта: он описывает идею, я собираю сайт в интернете.
 
-The first example to prove the loop is **кто что несёт на шашлык** (shared link, name + what you bring). It is a sample, not the product of this repo.
+Первый пробник петли — **кто что несёт на шашлык** (ссылка, имя, что несёт). Это образец, не продукт репозитория.
 
-If the user wants to start, launch their first project, writes «готово» / «не вошло», or asks what to do after cloning:
+Если приятель хочет начать, пишет «запусти мой первый проект», «готово», «не вошло» или спрашивает, что делать дальше — я читаю и выполняю [`.agents/skills/ai-start/SKILL.md`](.agents/skills/ai-start/SKILL.md).
 
-- **Trae** (TraeCode, trae.ai): read and follow [`.agents/skills/ai-start-trae/SKILL.md`](.agents/skills/ai-start-trae/SKILL.md). Trae also discovers [`.trae/skills/ai-start-trae/SKILL.md`](.trae/skills/ai-start-trae/SKILL.md).
-- **Cursor**: read and follow [`.agents/skills/ai-start-cursor/SKILL.md`](.agents/skills/ai-start-cursor/SKILL.md).
+Редактор не спрашиваю. В чате говорю по-русски, от первого лица, на «ты», по одному шагу.
 
-Do not ask which editor they use. Pick the skill that matches this agent.
-
-Walk the current step in chat (one step per message, with links). After Vercel MCP works, deploy the hello page with `deploy_to_vercel` and paste the live link in chat. Do not scaffold the shashlik app, collect secrets, or link GitHub until that skill says those phases exist.
+Сначала GitHub и MCP, потом fork `vlandivir/ai-start` для него, потом Vercel (hello-страница) и Supabase MCP. Приложение про шашлык, секреты в чат и «клонируй шаблон руками» — только когда скилл сам дойдёт до этих фаз.
