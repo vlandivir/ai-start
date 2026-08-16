@@ -14,7 +14,7 @@
 }
 ```
 
-Если рядом есть скрипты: `scripts/ensure-vercel-mcp.sh` (дописывает `vercel`, чужие серверы не трогает).
+Дописываю тот же блок в JSON тулом записи, не скриптом. Чужие серверы не трогаю.
 
 ## Вход
 
@@ -26,7 +26,7 @@ Cursor: [deeplink](https://cursor.com/docs/mcp/install-links) `cursor://anyspher
 
 После входа вызываю `list_teams`. Беру у первой команды `slug` и `id`. URL кабинета не прошу.
 
-1. `bash scripts/next-project-name.sh <slug>` → `<slug>-<YYYYMMDDHHMM>-ai-start`
+1. Имя: `<slug>-<YYYYMMDDHHMM>-ai-start` (slug в нижнем регистре, только `a-z0-9-`)
 2. `deploy_to_vercel` с `target: production`, этим именем, `teamId`, `projectSettings.framework: null`, и `assets/hello.html` как `index.html`
 3. `update_project_deployment_protection` с `ssoProtection: { enabled: false }`, чтобы ссылка открылась без логина Vercel
 4. В чат — публичный `.vercel.app`, без `_vercel_share`

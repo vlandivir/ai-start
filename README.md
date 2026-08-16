@@ -17,13 +17,13 @@
 Открой чат и вставь целиком:
 
 ```
-Скачай с GitHub папку vlandivir/ai-start/.agents/skills/ai-start в личные скиллы и сразу запусти: «запусти мой первый проект». Весь репозиторий не клонируй.
+Скачай с GitHub только файл vlandivir/ai-start/.agents/skills/ai-start/SKILL.md в личные скиллы и сразу запусти: «запусти мой первый проект». Скрипты не качай, chmod не делай, весь репозиторий не клонируй.
 ```
 
-Куда агент должен положить папку, если спрашивает:
+Куда агент должен положить файл, если спрашивает:
 
-- Cursor: `~/.cursor/skills/ai-start`
-- Trae: `~/.trae/skills/ai-start` (если такой папки нет — `.trae/skills/ai-start` в любой открытой папке)
-- Claude: `~/.claude/skills/ai-start`
+- Cursor: `~/.cursor/skills/ai-start/SKILL.md`
+- Trae: `~/.trae/skills/ai-start/SKILL.md` (если такой папки нет — `.trae/skills/ai-start/SKILL.md` в любой открытой папке)
+- Claude: `~/.claude/skills/ai-start/SKILL.md`
 
 Я отвечу как приятель, по одному шагу. Когда шаг сделан — пиши **готово**.

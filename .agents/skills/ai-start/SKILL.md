@@ -18,13 +18,13 @@ description: >-
 
 Токены, PAT и ключи в чат и в git не прошу. OAuth за него не подтверждаю.
 
-Прогресс: читаю `~/.ai-start/state.json`. Если уже есть git-корень — ещё `.ai-start/state.json` в проекте (проект перекрывает). Пишу ключи скриптом `scripts/merge-state.sh` если он рядом, иначе сам мержу JSON в оба места (домашний файл всегда).
+Прогресс: читаю `~/.ai-start/state.json`. Если уже есть git-корень — ещё `.ai-start/state.json` в проекте (проект перекрывает). Ключи дописываю в JSON сам, тулом записи файлов, в оба места (домашний файл всегда).
 
 GitHub MCP: [references/github-mcp.md](references/github-mcp.md).  
 Vercel MCP: [references/vercel-mcp.md](references/vercel-mcp.md).  
 Supabase MCP: [references/supabase-mcp.md](references/supabase-mcp.md).
 
-Если скриптов рядом нет (скилл лежит одной копией SKILL.md) — делаю то же руками: дописываю MCP JSON, клонирую git, пишу state.
+Скриптов у скилла нет. `.sh` не скачиваю, `chmod` не делаю, bash-скрипты скилла не запускаю. MCP-конфиг и state — обычный JSON, который я дописываю, не стирая другие серверы.
 
 ## Шаг 0 — куда идти
 
@@ -57,7 +57,7 @@ Supabase MCP: [references/supabase-mcp.md](references/supabase-mcp.md).
 
 После «готово» с шага 1. URL кабинета не прошу.
 
-Если есть скрипт: `bash .agents/skills/ai-start/scripts/ensure-github-mcp.sh`. Иначе дописываю `github` с url `https://api.githubcopilot.com/mcp/` в глобальный `~/.cursor/mcp.json` и/или `~/.trae/mcp.json`, не стирая другие серверы.
+Дописываю `github` с url `https://api.githubcopilot.com/mcp/` в глобальный `~/.cursor/mcp.json` и/или `~/.trae/mcp.json`. Другие серверы не стираю. Пишу файл тулом, не скриптом.
 
 Пишу `{ "github_mcp_prompted": true }`.
 
@@ -99,7 +99,7 @@ Supabase MCP: [references/supabase-mcp.md](references/supabase-mcp.md).
 
 После «готово» с шага 5. URL кабинета Vercel не прошу.
 
-Если есть скрипт: `bash .agents/skills/ai-start/scripts/ensure-vercel-mcp.sh`. Иначе дописываю `vercel` / `https://mcp.vercel.com` в `.cursor/mcp.json` и `.trae/mcp.json` проекта.
+Дописываю `vercel` / `https://mcp.vercel.com` в `.cursor/mcp.json` и `.trae/mcp.json` проекта. Другие серверы не стираю. Пишу файл тулом, не скриптом.
 
 Пишу `{ "mcp_prompted": true, "vercel_mcp_prompted": true }`.
 
@@ -118,10 +118,10 @@ Supabase MCP: [references/supabase-mcp.md](references/supabase-mcp.md).
 
 Только если в state ещё нет `vercel_url`.
 
-1. `bash .agents/skills/ai-start/scripts/next-project-name.sh <team-slug>` — имя как есть (`<slug>-<YYYYMMDDHHMM>-ai-start`).
-2. Читаю [assets/hello.html](assets/hello.html). Деплою `deploy_to_vercel`:
+1. Имя проекта: slug команды в нижнем регистре, только `a-z0-9-`, затем `-<YYYYMMDDHHMM>-ai-start`. Время — текущие дата и час-минута.
+2. Читаю [assets/hello.html](assets/hello.html) в открытом проекте. Если файла нет — короткая страница «Привет. Это уже в интернете.» Деплою `deploy_to_vercel`:
    - `target`: `production`
-   - `name`: вывод скрипта
+   - `name`: это имя
    - `teamId`: id или slug команды
    - `projectSettings.framework`: `null`
    - `files`: путь `index.html`, `data` = содержимое hello.html, encoding `utf-8`
@@ -150,7 +150,7 @@ Git-проект в Vercel не создаю. Домен не покупаю. Ve
 
 После «готово» с шага 10. URL и ключи Supabase не прошу.
 
-Если есть скрипт: `bash .agents/skills/ai-start/scripts/ensure-supabase-mcp.sh`. Иначе дописываю `supabase` / `https://mcp.supabase.com/mcp` в проектный mcp.json.
+Дописываю `supabase` / `https://mcp.supabase.com/mcp` в `.cursor/mcp.json` и `.trae/mcp.json` проекта. Другие серверы не стираю. Пишу файл тулом, не скриптом.
 
 Пишу `{ "supabase_mcp_prompted": true }`.
 
