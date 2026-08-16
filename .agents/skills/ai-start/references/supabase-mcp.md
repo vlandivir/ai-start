@@ -4,7 +4,7 @@
 
 `npx`, personal access token и `project_ref` на этом шаге не использую: иначе пропадут `list_organizations`.
 
-После клона пишу сервер в **проект**: `.cursor/mcp.json` и `.trae/mcp.json`.
+После клона пишу сервер в **корень открытой папки**: `.cursor/mcp.json` и `.trae/mcp.json`.
 
 ```json
 {
@@ -16,13 +16,13 @@
 }
 ```
 
-Дописываю тот же блок в JSON тулом записи, не скриптом. `vercel` и другие серверы не трогаю.
+Дописываю тот же блок в JSON тулом записи. `vercel` и другие серверы не трогаю.
 
 ## Вход
 
 Cursor: [deeplink](https://cursor.com/docs/mcp/install-links) `cursor://anysphere.cursor-deeplink/mcp/install?name=supabase&config=eyJ1cmwiOiJodHRwczovL21jcC5zdXBhYmFzZS5jb20vbWNwIn0=`. Запасной путь: Customize → MCP → Needs login.
 
-Если deeplink нет: MCP → включить **supabase** на агенте → вход в браузере.
+Без deeplink: после записи файла в чате — **supabase** уже в списке (настройки → MCP), нужен только вход. Если нет: Add → Add Manually.
 
 ## Проверка
 

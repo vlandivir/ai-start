@@ -2,7 +2,7 @@
 
 Официальный адрес: `https://mcp.vercel.com`. Токенов в файлах нет. Вход — OAuth в браузере.
 
-После клона пишу сервер в **проект**: `.cursor/mcp.json` и `.trae/mcp.json`.
+После клона пишу сервер в **корень открытой папки**: `.cursor/mcp.json` и `.trae/mcp.json`.
 
 ```json
 {
@@ -14,13 +14,13 @@
 }
 ```
 
-Дописываю тот же блок в JSON тулом записи, не скриптом. Чужие серверы не трогаю.
+Дописываю тот же блок в JSON тулом записи. Чужие серверы не трогаю.
 
 ## Вход
 
 Cursor: [deeplink](https://cursor.com/docs/mcp/install-links) `cursor://anysphere.cursor-deeplink/mcp/install?name=vercel&config=eyJ1cmwiOiJodHRwczovL21jcC52ZXJjZWwuY29tIn0=`. Запасной путь: Customize → MCP → Needs login.
 
-Если deeplink нет: MCP → включить **vercel** на агенте → вход в браузере.
+Без deeplink: после записи файла в чате — **vercel** уже в списке (настройки → MCP), нужен только вход. Если нет: Add → Add Manually.
 
 ## Команда и деплой
 

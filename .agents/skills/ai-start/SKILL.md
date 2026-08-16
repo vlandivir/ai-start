@@ -14,7 +14,7 @@ description: >-
 
 Это инфраструктура, не продукт. Первый пробник петли — «кто что несёт на шашлык». Само приложение и таблицы я пока не собираю. Сначала живая hello-страница на Vercel, потом вход в Supabase.
 
-Я не спрашиваю, какой редактор. Если есть тула `move_agent_to_root` или работают ссылки `cursor://` — в чате даю deeplink «Подключить …». Если нет — прошу открыть MCP в настройках, найти сервер по имени, включить на агенте, войти в браузере. Другой редактор в чате не называю.
+Я не спрашиваю, какой редактор. Если есть тула `move_agent_to_root` или работают ссылки `cursor://` — в чате даю deeplink «Подключить …»: после клика сервер уже в списке, остаётся войти в браузере. Если deeplink нет — сам пишу MCP в **открытую папку** (`.trae/mcp.json` и `.cursor/mcp.json` в корне), чтобы сервер появился в списке. В чате не прошу «добавить сервер руками», только открыть MCP и войти. Другой редактор в чате не называю.
 
 Токены, PAT и ключи в чат и в git не прошу. OAuth за него не подтверждаю.
 
@@ -24,7 +24,7 @@ GitHub MCP: [references/github-mcp.md](references/github-mcp.md).
 Vercel MCP: [references/vercel-mcp.md](references/vercel-mcp.md).  
 Supabase MCP: [references/supabase-mcp.md](references/supabase-mcp.md).
 
-Скриптов у скилла нет. `.sh` не скачиваю, `chmod` не делаю, bash-скрипты скилла не запускаю. MCP-конфиг и state — обычный JSON, который я дописываю, не стирая другие серверы.
+MCP-конфиг и state — обычный JSON, который я дописываю тулом записи файлов, не стирая другие серверы.
 
 ## Шаг 0 — куда идти
 
@@ -57,13 +57,18 @@ Supabase MCP: [references/supabase-mcp.md](references/supabase-mcp.md).
 
 После «готово» с шага 1. URL кабинета не прошу.
 
-Дописываю `github` с url `https://api.githubcopilot.com/mcp/` в глобальный `~/.cursor/mcp.json` и/или `~/.trae/mcp.json`. Другие серверы не стираю. Пишу файл тулом, не скриптом.
+Дописываю `github` с url `https://api.githubcopilot.com/mcp/` тулом записи, не стирая другие серверы:
+
+- в корне **открытой папки**: `.trae/mcp.json` и `.cursor/mcp.json` — отсюда редактор берёт список MCP;
+- плюс `~/.cursor/mcp.json`, если есть домашняя папка Cursor.
+
+Не ограничиваюсь `~/.trae/mcp.json`: его список MCP часто не показывает.
 
 Пишу `{ "github_mcp_prompted": true }`.
 
-В чате (Cursor / deeplink): один раз пусти меня в GitHub. Открой [Подключить GitHub](cursor://anysphere.cursor-deeplink/mcp/install?name=github&config=eyJ1cmwiOiJodHRwczovL2FwaS5naXRodWJjb3BpbG90LmNvbS9tY3AvIn0=). В браузере подтверди вход. Когда GitHub в MCP станет зелёным (не «нужен вход»), напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login.
+В чате (Cursor / deeplink): я уже могу подключить GitHub одной ссылкой. Открой [Подключить GitHub](cursor://anysphere.cursor-deeplink/mcp/install?name=github&config=eyJ1cmwiOiJodHRwczovL2FwaS5naXRodWJjb3BpbG90LmNvbS9tY3AvIn0=). В списке MCP появится github — войди в браузере. Когда станет зелёным (не «нужен вход»), напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login у **github**.
 
-В чате (без deeplink): один раз пусти меня в GitHub. Открой MCP в настройках, найди **github**, включи на агенте. Если попросит войти — разреши в браузере. Когда подключится, напиши **готово**. Если окно входа так и не появилось — напиши **не вошло**.
+В чате (без deeplink): я уже добавил **github** в конфиг этой папки. Открой настройки (шестерёнка) → MCP. В списке должен быть **github** — нажми вход / Connect и разреши в браузере. Когда станет зелёным, напиши **готово**. Если github нет в списке: MCP → Add → Add Manually, подтверди JSON из `.trae/mcp.json` в корне папки. Если окна входа так и не было — напиши **не вошло**.
 
 ## Шаг 3 — проверка GitHub MCP
 
@@ -99,13 +104,13 @@ Supabase MCP: [references/supabase-mcp.md](references/supabase-mcp.md).
 
 После «готово» с шага 5. URL кабинета Vercel не прошу.
 
-Дописываю `vercel` / `https://mcp.vercel.com` в `.cursor/mcp.json` и `.trae/mcp.json` проекта. Другие серверы не стираю. Пишу файл тулом, не скриптом.
+Дописываю `vercel` / `https://mcp.vercel.com` в `.cursor/mcp.json` и `.trae/mcp.json` **корня открытой папки**. Другие серверы не стираю. Пишу файл тулом записи.
 
 Пишу `{ "mcp_prompted": true, "vercel_mcp_prompted": true }`.
 
-В чате (deeplink): один раз пусти меня выложить сайт. Открой [Подключить Vercel](cursor://anysphere.cursor-deeplink/mcp/install?name=vercel&config=eyJ1cmwiOiJodHRwczovL21jcC52ZXJjZWwuY29tIn0=). В браузере подтверди вход. Когда Vercel в MCP станет зелёным, напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login.
+В чате (deeplink): открой [Подключить Vercel](cursor://anysphere.cursor-deeplink/mcp/install?name=vercel&config=eyJ1cmwiOiJodHRwczovL21jcC52ZXJjZWwuY29tIn0=). В списке уже будет vercel — войди в браузере. Когда станет зелёным, напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login у **vercel**.
 
-В чате (без deeplink): открой MCP, найди **vercel**, включи на агенте, войди в браузере если попросит. Когда подключится — **готово**. Если входа нет — **не вошло**.
+В чате (без deeplink): я уже добавил **vercel** в конфиг. Открой настройки → MCP, в списке **vercel** — вход в браузере. Когда зелёный — **готово**. Если его нет: Add → Add Manually, подтверди `.trae/mcp.json`. Если входа нет — **не вошло**.
 
 ## Шаг 7 — проверка Vercel MCP
 
@@ -150,13 +155,13 @@ Git-проект в Vercel не создаю. Домен не покупаю. Ve
 
 После «готово» с шага 10. URL и ключи Supabase не прошу.
 
-Дописываю `supabase` / `https://mcp.supabase.com/mcp` в `.cursor/mcp.json` и `.trae/mcp.json` проекта. Другие серверы не стираю. Пишу файл тулом, не скриптом.
+Дописываю `supabase` / `https://mcp.supabase.com/mcp` в `.cursor/mcp.json` и `.trae/mcp.json` **корня открытой папки**. Другие серверы не стираю. Пишу файл тулом записи.
 
 Пишу `{ "supabase_mcp_prompted": true }`.
 
-В чате (deeplink): один раз пусти меня к таблицам. Открой [Подключить Supabase](cursor://anysphere.cursor-deeplink/mcp/install?name=supabase&config=eyJ1cmwiOiJodHRwczovL21jcC5zdXBhYmFzZS5jb20vbWNwIn0=). В браузере подтверди вход. Когда Supabase в MCP станет зелёным, напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login.
+В чате (deeplink): открой [Подключить Supabase](cursor://anysphere.cursor-deeplink/mcp/install?name=supabase&config=eyJ1cmwiOiJodHRwczovL21jcC5zdXBhYmFzZS5jb20vbWNwIn0=). В списке уже будет supabase — войди в браузере. Когда станет зелёным, напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login у **supabase**.
 
-В чате (без deeplink): открой MCP, найди **supabase**, включи на агенте, войди в браузере если попросит. Когда подключится — **готово**. Если входа нет — **не вошло**.
+В чате (без deeplink): я уже добавил **supabase** в конфиг. Открой настройки → MCP, в списке **supabase** — вход в браузере. Когда зелёный — **готово**. Если его нет: Add → Add Manually, подтверди `.trae/mcp.json`. Если входа нет — **не вошло**.
 
 ## Шаг 12 — проверка Supabase MCP
 

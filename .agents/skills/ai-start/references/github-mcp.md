@@ -2,7 +2,7 @@
 
 Официальный адрес: `https://api.githubcopilot.com/mcp/`. Токенов в файлах нет. Вход — OAuth в браузере. PAT я не прошу и в git не кладу.
 
-До клона проекта пишу сервер в **глобальный** конфиг редактора: `~/.cursor/mcp.json` или `~/.trae/mcp.json`.
+До клона пишу сервер в **корень открытой папки**: `.trae/mcp.json` и `.cursor/mcp.json`. Список MCP берётся оттуда, не из `~/.trae/mcp.json`. Плюс `~/.cursor/mcp.json`, если есть Cursor.
 
 ```json
 {
@@ -14,13 +14,13 @@
 }
 ```
 
-Дописываю тот же блок в JSON тулом записи, не скриптом и не через `chmod`. Другие серверы не стираю.
+Дописываю тот же блок тулом записи. Другие серверы не стираю.
 
 ## Вход
 
-Cursor: [deeplink](https://cursor.com/docs/mcp/install-links) `cursor://anysphere.cursor-deeplink/mcp/install?name=github&config=eyJ1cmwiOiJodHRwczovL2FwaS5naXRodWJjb3BpbG90LmNvbS9tY3AvIn0=`. Запасной путь: Customize → MCP → Needs login.
+Cursor: [deeplink](https://cursor.com/docs/mcp/install-links) `cursor://anysphere.cursor-deeplink/mcp/install?name=github&config=eyJ1cmwiOiJodHRwczovL2FwaS5naXRodWJjb3BpbG90LmNvbS9tY3AvIn0=`. Сервер сразу в списке — остаётся OAuth. Запасной путь: Customize → MCP → Needs login у **github**.
 
-Если deeplink нет: MCP в настройках → включить **github** на агенте → вход в браузере.
+Без deeplink: после записи `.trae/mcp.json` в чате говорю, что **github** уже в списке (настройки → MCP). Нужен только вход в браузере. Если сервера нет: Add → Add Manually и подтвердить JSON из файла.
 
 ## Проверка
 
