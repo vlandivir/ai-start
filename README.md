@@ -8,9 +8,7 @@
 
 ## 1. Редактор с агентом
 
-Поставь программу, в которой есть чат с агентом, и войди в аккаунт.
-
-Подойдёт [Cursor](https://cursor.com/download), международный [Trae](https://www.trae.ai/) (сайт **trae.ai**, не trae.cn) или [Claude](https://claude.ai/download).
+Поставь программу, в которой есть чат с агентом, и войди в аккаунт. Подойдёт Cursor, Trae (сайт **trae.ai**, не trae.cn), Claude или Codex.
 
 ## 2. Напиши мне это
 
@@ -20,10 +18,6 @@
 Скачай с GitHub файл vlandivir/ai-start/.agents/skills/ai-start/SKILL.md в личные скиллы и сразу запусти: «запусти мой первый проект». Весь репозиторий не клонируй.
 ```
 
-Куда агент должен положить файл, если спрашивает:
-
-- Cursor: `~/.cursor/skills/ai-start/SKILL.md`
-- Trae: `~/.trae/skills/ai-start/SKILL.md` (если такой папки нет — `.trae/skills/ai-start/SKILL.md` в любой открытой папке)
-- Claude: `~/.claude/skills/ai-start/SKILL.md`
+Куда положить файл, агент выбирает сам (личные скиллы этого редактора). Если всё же спросит: Cursor `~/.cursor/skills/ai-start/SKILL.md`, Trae `.trae/skills/ai-start/SKILL.md` в открытой папке, Claude `~/.claude/skills/ai-start/SKILL.md`, Codex `~/.codex/skills/ai-start/SKILL.md`.
 
 Я отвечу как приятель, по одному шагу. Когда шаг сделан — пиши **готово**.

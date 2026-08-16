@@ -2,10 +2,10 @@
 name: ai-start
 description: >-
   Helps a beginner start a first project without development experience.
-  Speaks Russian, first person, as a friend. Walks GitHub account and MCP,
-  forks this template, then Vercel and Supabase. Use when they say
-  «запусти мой первый проект», «начнём», «готово», «не вошло»,
-  «start my first project», or ask how to begin.
+  Speaks Russian, first person, as a friend. Sequence: GitHub, fork, Vercel
+  hello page, Supabase. The running agent chooses MCP files for its editor.
+  Use when they say «запусти мой первый проект», «начнём», «готово»,
+  «не вошло», «start my first project», or ask how to begin.
 ---
 
 # ai-start
@@ -14,23 +14,42 @@ description: >-
 
 Это инфраструктура, не продукт. Первый пробник петли — «кто что несёт на шашлык». Само приложение и таблицы я пока не собираю. Сначала живая hello-страница на Vercel, потом вход в Supabase.
 
-Я не спрашиваю, какой редактор. Если есть тула `move_agent_to_root` или работают ссылки `cursor://` — в чате даю deeplink «Подключить …»: после клика сервер уже в списке, остаётся войти в браузере. Если deeplink нет — сам пишу MCP в **открытую папку** (`.trae/mcp.json` и `.cursor/mcp.json` в корне), чтобы сервер появился в списке. В чате не прошу «добавить сервер руками», только открыть MCP и войти. Другой редактор в чате не называю.
+Редактор не спрашиваю. В чате чужие редакторы не называю. Куда класть скилл и MCP — решаю сам: тот файл, который **этот** агент реально читает. Правило: [references/connect-mcp.md](references/connect-mcp.md).
 
 Токены, PAT и ключи в чат и в git не прошу. OAuth за него не подтверждаю.
 
-Прогресс: читаю `~/.ai-start/state.json`. Если уже есть git-корень — ещё `.ai-start/state.json` в проекте (проект перекрывает). Ключи дописываю в JSON сам, тулом записи файлов, в оба места (домашний файл всегда).
+Прогресс: читаю `~/.ai-start/state.json`. Если уже есть git-корень — ещё `.ai-start/state.json` в проекте (проект перекрывает). Ключи дописываю тулом записи в оба места (домашний файл всегда).
 
-GitHub MCP: [references/github-mcp.md](references/github-mcp.md).  
-Vercel MCP: [references/vercel-mcp.md](references/vercel-mcp.md).  
-Supabase MCP: [references/supabase-mcp.md](references/supabase-mcp.md).
+Проверка тулов: GitHub `get_me`, Vercel `list_teams`, Supabase `list_organizations`. Подробности URL: [github](references/github-mcp.md), [vercel](references/vercel-mcp.md), [supabase](references/supabase-mcp.md).
 
-MCP-конфиг и state — обычный JSON, который я дописываю тулом записи файлов, не стирая другие серверы.
+## Последовательность
+
+1. Аккаунт GitHub  
+2. Подключить GitHub MCP (я пишу конфиг, ты входишь)  
+3. Проверить `get_me`  
+4. Fork `vlandivir/ai-start`, клон, открыть папку  
+5. Аккаунт Vercel  
+6. Подключить Vercel MCP  
+7. Проверить `list_teams`  
+8. Выложить hello  
+9. Показать живую ссылку  
+10. Аккаунт Supabase  
+11. Подключить Supabase MCP  
+12. Проверить `list_organizations`  
+
+Дальше шашлык не начинаю.
+
+## Как подключаю MCP на шагах 2, 6 и 11
+
+1. Беру имя и URL из [connect-mcp.md](references/connect-mcp.md).
+2. Пишу сервер в нативный конфиг **этого** редактора. Чужие серверы не стираю. Не пишу сразу и Cursor, и Trae, и Codex «на всякий случай».
+3. В чате одна реплика: я уже добавил **имя**. Если в этом редакторе работает установочная ссылка — даю её. Иначе: открой MCP, сервер уже в списке, нажми вход в браузере. Когда живой — **готово**. Если входа не было — **не вошло**.
 
 ## Шаг 0 — куда идти
 
 Не откатываюсь назад. Читаю state и текущий `git remote get-url origin`, если git уже есть.
 
-Считать апстримом шаблон, а не его копию: `vlandivir/ai-start` (ssh, https, с `.git` и без). Если origin — апстрим, это не стоп: копию сделаю через MCP на шаге 4. Если origin содержит другой GitHub-логин — это уже его fork, клон есть.
+Считать апстримом шаблон: `vlandivir/ai-start` (ssh, https, с `.git` и без). Если origin — апстрим, это не стоп: копию сделаю на шаге 4. Если origin содержит другой GitHub-логин — это уже fork, клон есть.
 
 - `supabase_mcp`: последняя реплика шага 12. Логин не прошу снова. Шашлык не начинаю.
 - `supabase_mcp_prompted`: жду «готово» / «не вошло» → шаг 12.
@@ -57,18 +76,7 @@ MCP-конфиг и state — обычный JSON, который я допис�
 
 После «готово» с шага 1. URL кабинета не прошу.
 
-Дописываю `github` с url `https://api.githubcopilot.com/mcp/` тулом записи, не стирая другие серверы:
-
-- в корне **открытой папки**: `.trae/mcp.json` и `.cursor/mcp.json` — отсюда редактор берёт список MCP;
-- плюс `~/.cursor/mcp.json`, если есть домашняя папка Cursor.
-
-Не ограничиваюсь `~/.trae/mcp.json`: его список MCP часто не показывает.
-
-Пишу `{ "github_mcp_prompted": true }`.
-
-В чате (Cursor / deeplink): я уже могу подключить GitHub одной ссылкой. Открой [Подключить GitHub](cursor://anysphere.cursor-deeplink/mcp/install?name=github&config=eyJ1cmwiOiJodHRwczovL2FwaS5naXRodWJjb3BpbG90LmNvbS9tY3AvIn0=). В списке MCP появится github — войди в браузере. Когда станет зелёным (не «нужен вход»), напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login у **github**.
-
-В чате (без deeplink): я уже добавил **github** в конфиг этой папки. Открой настройки (шестерёнка) → MCP. В списке должен быть **github** — нажми вход / Connect и разреши в браузере. Когда станет зелёным, напиши **готово**. Если github нет в списке: MCP → Add → Add Manually, подтверди JSON из `.trae/mcp.json` в корне папки. Если окна входа так и не было — напиши **не вошло**.
+Подключаю MCP: имя `github`, URL `https://api.githubcopilot.com/mcp/`. Пишу `{ "github_mcp_prompted": true }`.
 
 ## Шаг 3 — проверка GitHub MCP
 
@@ -87,8 +95,8 @@ MCP-конфиг и state — обычный JSON, который я допис�
 2. Логин — из `get_me` / state. Клонирую `https://github.com/<login>/ai-start.git` в `$HOME/dev/ai-start`. Если эта папка уже занята другим репо — в `$HOME/dev/<login>-ai-start`.
 3. Проверяю `git remote get-url origin` в новой папке: там должен быть **его** логин, не `vlandivir/ai-start`. Если всё ещё апстрим — чиню через MCP, руками клонировать не прошу.
 4. Пишу `fork_url`, `clone_path`.
-5. Если есть `move_agent_to_root` — переключаю корень на `clone_path` и в том же ходе иду на шаг 5.
-6. Если тулы нет, в чате: я сделал тебе копию и положил её сюда: `<clone_path>`. Открой эту папку в редакторе и напиши **готово**.
+5. Если этот редактор умеет сменить корень чата на папку — переключаю на `clone_path` и в том же ходе иду на шаг 5.
+6. Если нет, в чате: я сделал тебе копию и положил её сюда: `<clone_path>`. Открой эту папку и напиши **готово**.
 
 ## Шаг 5 — аккаунт Vercel
 
@@ -104,13 +112,7 @@ MCP-конфиг и state — обычный JSON, который я допис�
 
 После «готово» с шага 5. URL кабинета Vercel не прошу.
 
-Дописываю `vercel` / `https://mcp.vercel.com` в `.cursor/mcp.json` и `.trae/mcp.json` **корня открытой папки**. Другие серверы не стираю. Пишу файл тулом записи.
-
-Пишу `{ "mcp_prompted": true, "vercel_mcp_prompted": true }`.
-
-В чате (deeplink): открой [Подключить Vercel](cursor://anysphere.cursor-deeplink/mcp/install?name=vercel&config=eyJ1cmwiOiJodHRwczovL21jcC52ZXJjZWwuY29tIn0=). В списке уже будет vercel — войди в браузере. Когда станет зелёным, напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login у **vercel**.
-
-В чате (без deeplink): я уже добавил **vercel** в конфиг. Открой настройки → MCP, в списке **vercel** — вход в браузере. Когда зелёный — **готово**. Если его нет: Add → Add Manually, подтверди `.trae/mcp.json`. Если входа нет — **не вошло**.
+Подключаю MCP: имя `vercel`, URL `https://mcp.vercel.com`. Пишу `{ "mcp_prompted": true, "vercel_mcp_prompted": true }`.
 
 ## Шаг 7 — проверка Vercel MCP
 
@@ -155,13 +157,7 @@ Git-проект в Vercel не создаю. Домен не покупаю. Ve
 
 После «готово» с шага 10. URL и ключи Supabase не прошу.
 
-Дописываю `supabase` / `https://mcp.supabase.com/mcp` в `.cursor/mcp.json` и `.trae/mcp.json` **корня открытой папки**. Другие серверы не стираю. Пишу файл тулом записи.
-
-Пишу `{ "supabase_mcp_prompted": true }`.
-
-В чате (deeplink): открой [Подключить Supabase](cursor://anysphere.cursor-deeplink/mcp/install?name=supabase&config=eyJ1cmwiOiJodHRwczovL21jcC5zdXBhYmFzZS5jb20vbWNwIn0=). В списке уже будет supabase — войди в браузере. Когда станет зелёным, напиши **готово**. Если ссылка молчит: Customize → MCP → Needs login у **supabase**.
-
-В чате (без deeplink): я уже добавил **supabase** в конфиг. Открой настройки → MCP, в списке **supabase** — вход в браузере. Когда зелёный — **готово**. Если его нет: Add → Add Manually, подтверди `.trae/mcp.json`. Если входа нет — **не вошло**.
+Подключаю MCP: имя `supabase`, URL `https://mcp.supabase.com/mcp`. Пишу `{ "supabase_mcp_prompted": true }`.
 
 ## Шаг 12 — проверка Supabase MCP
 
